@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    meta[charset="utf-8"]
+    title= content_for?(:title) ? yield(:title) : 'PdfBadges'
+    meta[http-equiv="X-UA-Compatible" content="IE=edge"]
+    meta[http-equiv="content-type" content="text/html; charset=UTF-8"]
+    meta[content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport"]
+
+    = csrf_meta_tags
+    = csp_meta_tag
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+
+  body
+    header.container-fluid
+    main#app.container.mb-4
+      = yield
+    footer.container-fluid.bg-dark.text-white
