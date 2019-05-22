@@ -1,0 +1,42 @@
+h1.page-title
+  => icon(:fa, :'file-pdf')
+  | Pdf badges
+h4.subtitle Make personalized pdf files from a template and a csv file
+
+.jumbotron
+  h3 Short instructions
+  p.lead Upload two files: a pdf file (one-page) that should be used as a background and a csv file with the data.
+    In the Template field modify the text template which will be rendered using the data file into each separate pdf page.
+
+  p Just play around with the template and settings to see what comes out.
+
+
+.card
+  .card-header Let's generate some pdfs
+  .card-body
+    = bootstrap_form_for :badge, url: :badges do |f|
+      .form-row
+        / .col-12= f.text_field :title
+        .col-6
+          = f.file_field :background, layout: :horizontal, label_col: 'col-4', control_col: 'col-8'
+          = f.file_field :data, required: true, layout: :horizontal, label_col: 'col-4', control_col: 'col-8'
+          = f.select :font, PdfTemplate::DEFAULT_FONTS.keys.zip(PdfTemplate::DEFAULT_FONTS.keys), layout: :horizontal, label_col: 'col-4', control_col: 'col-8'
+        .col-6
+          = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 4, help: 'refer to prawn-pdf documentation for syntax'
+      .form-row
+        .col-3
+          = f.form_group :page_layout, label: {text: 'Page orientation'}
+            = f.radio_button :page_layout, :portrait, label: 'Portrait', checked: true
+            = f.radio_button :page_layout, :landscape, label: 'Landscape'
+        .col-3
+          - paper_sizes = %w[A4 A3 A2 A5 A6 A7]
+          = f.select :paper_size, paper_sizes.zip(paper_sizes)
+        .col-6
+          = f.text_field :margins, help: 'top, right, bottom, left -- all in mm', value: '40, 40, 40, 40'
+      .form-row
+        .col-12= f.submit 'Generate', name: nil
+
+javascript:
+    $('.custom-file-input').change(function () {
+        $(this).siblings('.custom-file-label').text(this.value);
+    });

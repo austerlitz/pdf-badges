@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root 'landing#index'
+  root 'badges#index'
+
+  resources :badges, only: [:index, :create, :show]
 end

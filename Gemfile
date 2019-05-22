@@ -37,11 +37,11 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
-gem 'turbolinks', '~> 5'
 gem 'slim-rails'
 
 gem 'bootstrap', '~> 4.2.1'
 gem 'font-awesome-sass', '~> 5.6.1'
+gem 'bootstrap_form', '>= 4.2.0'
 
 gem 'mustache'
 gem 'prawn'
