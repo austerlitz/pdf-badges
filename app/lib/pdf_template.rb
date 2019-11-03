@@ -91,6 +91,7 @@ class PdfTemplate < Prawn::Document
       leading: 1,
       background: nil,
       data: {name: 'John Snow'},
+      debug: false,
   }
 
   attr_accessor :data
@@ -128,15 +129,15 @@ class PdfTemplate < Prawn::Document
 
 
   def to_pdf
-    if !@template_page.nil?
+    if @template_page.nil?
+      render
+    else
       self_pdf = CombinePDF.parse(render)
       combined_pdf    = CombinePDF.new
       self_pdf.pages.each do |page|
         combined_pdf << (@template_page.clone << page)
       end
       combined_pdf.to_pdf
-    else
-      render
     end
   end
 

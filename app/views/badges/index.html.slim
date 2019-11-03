@@ -1,11 +1,11 @@
 h1.page-title
   => icon(:fa, :'file-pdf')
   | Pdf badges
-h4.subtitle Make personalized pdf files from a template and a csv file
+  small.text-muted< make personalized pdf files from a template and a csv file
 
 .jumbotron
-  h3 Short instructions
-  p.lead Upload two files: a pdf file (one-page) that should be used as a background and a csv file with the data.
+  h4 Short instructions
+  p Upload two files: an image or a pdf file (one-page) that should be used as a background and a csv file with the data.
     In the Template field modify the text template which will be rendered using the data file into each separate pdf page.
 
   p Just play around with the template and settings to see what comes out.
@@ -34,6 +34,10 @@ h4.subtitle Make personalized pdf files from a template and a csv file
         .col-6
           = f.text_field :margins, help: 'top, right, bottom, left -- all in mm', value: '40, 40, 40, 40'
       .form-row
+        .col-6
+          = f.check_box :debug, custom: :switch
+          small.text-muted.form-text adds stroke axis to help understand pdf geometry
+      .form-row.mt-2
         .col-12= f.submit 'Generate', name: nil
 
 javascript:
