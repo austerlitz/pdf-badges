@@ -15,5 +15,22 @@ module PdfBadges
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+
+    config.generators do |g|
+      g.orm             :active_record
+      g.template_engine :slim
+      g.stylesheets     false
+      g.javascripts     false
+      g.helpers         false
+      g.test_framework :rspec,
+                       fixtures: true,
+                       view_specs: false,
+                       helper_specs: false,
+                       routing_specs: false,
+                       controller_specs: true,
+                       request_specs: false
+      g.fixture_replacement :factory_bot, dir: 'spec/factories'
+    end
   end
 end
