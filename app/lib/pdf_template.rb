@@ -36,6 +36,11 @@ class PdfTemplate < Prawn::Document
           normal: File.join(FONTS_PATH, 'arial.ttf'),
           bold:   File.join(FONTS_PATH, 'arial_bold.ttf')
       },
+      'Cooper'     => {
+          normal:      File.join(FONTS_PATH, 'COOPER.TTF'),
+          bold:        File.join(FONTS_PATH, 'CooperBlackStd.ttf'),
+          italic:      File.join(FONTS_PATH, 'CooperBlackStd-Italic.ttf'),
+      },
       'PF Handbook Pro'     => {
           normal:      File.join(FONTS_PATH, 'PFHandbookPro-Regular.ttf'),
           bold:        File.join(FONTS_PATH, 'PFHandbookPro-Bold.ttf'),
