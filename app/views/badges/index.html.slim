@@ -22,14 +22,14 @@ h1.page-title
           = f.file_field :data, required: true, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'csv file with first row as column names'
           = f.select :font, PdfTemplate::DEFAULT_FONTS.keys.zip(PdfTemplate::DEFAULT_FONTS.keys), layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'default font for all the text. Can be altered in the template.'
         .col-6
-          = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 5, help: 'Refer to prawn-pdf documentation for syntax. Use csv column names as variable names in double curly brackets ("{{}}")'
+          = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 5, help: 'Refer to <a href="http://prawnpdf.org/manual.pdf">prawn-pdf documentation</a> for syntax. Use csv column names as variable names in double curly brackets ("{{}}")'.html_safe
       .form-row
         .col-3
           = f.form_group :page_layout, label: {text: 'Page orientation'}
             = f.radio_button :page_layout, :portrait, label: 'Portrait', checked: true
             = f.radio_button :page_layout, :landscape, label: 'Landscape'
         .col-3
-          - paper_sizes = %w[A4 A3 A2 A5 A6 A7]
+          - paper_sizes = PDF::Core::PageGeometry::SIZES.keys
           = f.select :paper_size, paper_sizes.zip(paper_sizes)
         .col-6
           = f.text_field :margins, help: 'top, right, bottom, left -- all in mm', value: '40, 40, 40, 40'
