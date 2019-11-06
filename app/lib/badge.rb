@@ -1,5 +1,6 @@
 class Badge
   include ActiveModel::Model
+
   attr_accessor :background, :data, :template,
                 :paper_size, :page_layout, :margins,
                 :font, :font_size, :text_align, :leading, :debug
@@ -16,15 +17,16 @@ class Badge
   validates_presence_of :template, :data, :page_layout, :paper_size, :font, :margins
   validates_inclusion_of :paper_size, in: PDF::Core::PageGeometry::SIZES.keys
   validates_inclusion_of :font, in: PdfTemplate::DEFAULT_FONTS.keys
-  validates_inclusion_of :page_layout, in: %i(portrait landscape)
+  validates_inclusion_of :page_layout, in: %w(portrait landscape)
 
   def initialize(options = {})
-    options = options.reverse_merge(DEFAULT_OPTIONS)
-    assign_attributes(options)
+    @options = options.reverse_merge(DEFAULT_OPTIONS)
+    assign_attributes(@options)
   end
 
   def to_pdf
     pdf = PdfTemplate.new(as_json)
     pdf.to_pdf
   end
+
 end

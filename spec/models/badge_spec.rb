@@ -14,7 +14,7 @@ RSpec.describe Badge, type: :model do
 
     it {should validate_inclusion_of(:paper_size).in_array(PDF::Core::PageGeometry::SIZES.keys)}
     it {should validate_inclusion_of(:font).in_array(PdfTemplate::DEFAULT_FONTS.keys)}
-    it {should validate_inclusion_of(:page_layout).in_array(%i(portrait landscape))}
+    it {should validate_inclusion_of(:page_layout).in_array(%w(portrait landscape))}
   end
 
   context 'with default params' do

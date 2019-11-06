@@ -6,14 +6,7 @@ class BadgesController < ApplicationController
   def create
     require 'csv'
     badge_params = params.require(:badge).permit(PdfTemplate::DEFAULT_OPTIONS.keys + [:title])
-    pdf_options  = {
-        template:    badge_params[:template].presence || %Q[Hello <b>{{name}}</b>\n<br>\n<font size="48" name="Futura PT Cond">{{message}}</font>],
-        data:        [{name: 'John', message: 'производство смыслов'}, {name: 'Mary', message: :hello}],
-        page_layout: :landscape,
-        paper_size:  'A5',
-        font:        'PT Sans',
-        margins:     [20, 40, 40, 40],
-    }
+    pdf_options  = {}
 
     pdf_options.merge!(badge_params.as_json(except: [:background, :data, :title, :margins, :debug, :paper_size]).symbolize_keys)
 
@@ -25,10 +18,13 @@ class BadgesController < ApplicationController
     pdf_options[:data] = data if data.present?
     pdf_options[:margins] = badge_params[:margins].split(/[, .-]+/).map(&:to_i) if badge_params[:margins].present?
 
-    pdf = PdfTemplate.new(pdf_options)
+    @badge = Badge.new(pdf_options)
 
-
-    send_data pdf.to_pdf, disposition: :inline, filename: 'badges.pdf', type: 'application/pdf'
+    if @badge.valid?
+      send_data @badge.to_pdf, disposition: :inline, filename: 'badges.pdf', type: 'application/pdf'
+    else
+      render :index
+    end
   end
 
   def show
