@@ -93,5 +93,12 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
-  config.failure_color = :magenta
+
+  # Options are :black, :red, :green, :yellow, :blue, :magenta, :cyan, and :white.
+  # failure_color: Color used when tests fail (default: :red)
+  # success_color: Color used when tests pass (default: :green)
+  # pending_color: Color used when tests are pending (default: :yellow)
+  # fixed_color: Color used when a pending block inside an example passes, but was expected to fail (default: :blue)
+  # detail_color: Color used for miscellaneous test details (default: :cyan)
+  config.failure_color = :blue
 end

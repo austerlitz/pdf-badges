@@ -14,12 +14,12 @@ h1.page-title
 .card
   .card-header Let's generate some pdfs
   .card-body
-    = bootstrap_form_for :badge, url: :badges do |f|
+    = bootstrap_form_for @badge, url: :badges do |f|
       .form-row
         / .col-12= f.text_field :title
         .col-6
           = f.file_field :background, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'any image or pdf file that should be used as a background'
-          = f.file_field :data, required: true, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'csv file with first row as column names'
+          = f.file_field :data, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'csv file with first row as column names'
           = f.select :font, PdfTemplate::DEFAULT_FONTS.keys.zip(PdfTemplate::DEFAULT_FONTS.keys), layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'default font for all the text. Can be altered in the template.'
         .col-6
           = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 5, help: 'Refer to <a href="http://prawnpdf.org/manual.pdf">prawn-pdf documentation</a> for syntax. Use csv column names as variable names in double curly brackets ("{{}}")'.html_safe
@@ -30,7 +30,7 @@ h1.page-title
             = f.radio_button :page_layout, :landscape, label: 'Landscape'
         .col-3
           - paper_sizes = PDF::Core::PageGeometry::SIZES.keys
-          = f.select :paper_size, paper_sizes.zip(paper_sizes)
+          = f.select :paper_size, paper_sizes.zip(paper_sizes), include_blank: true
         .col-6
           = f.text_field :margins, help: 'top, right, bottom, left -- all in mm', value: '40, 40, 40, 40'
       .form-row
