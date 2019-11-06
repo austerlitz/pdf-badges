@@ -92,7 +92,7 @@ class PdfTemplate < Prawn::Document
       fonts:  DEFAULT_FONTS,
       font_size: 16,
       text_align: 'center',
-      valigh: 'top',
+      valign: 'top',
       use_background: false,
       leading: 1,
       background: nil,
@@ -161,7 +161,7 @@ class PdfTemplate < Prawn::Document
   end
 
   def generate_page(text_string)
-    text @template.render(text_string), size: @options[:font_size], inline_format: true, align: @options[:text_align].to_sym
+    text @template.render(text_string), size: @options[:font_size], inline_format: true, align: @options[:text_align].to_sym, valign: @options[:valign].to_sym
   end
 end
 

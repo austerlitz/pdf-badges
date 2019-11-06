@@ -11,6 +11,7 @@ class Badge
       page_layout: :landscape,
       paper_size:  'A5',
       font:        'PT Sans',
+      font_size:   12,
       margins:     [20, 40, 40, 40],
       text_align:  'left',
       valign:      'top',
@@ -26,6 +27,7 @@ class Badge
 
   def initialize(options = {})
     options[:page_layout] = options[:page_layout].to_sym if options[:page_layout].present?
+    options[:font_size] = options[:font_size].to_i if options[:font_size].present?
     assign_attributes(DEFAULT_OPTIONS.merge(options))
   end
 

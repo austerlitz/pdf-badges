@@ -3,7 +3,7 @@ h1.page-title
   | Pdf badges
   small.text-muted< make personalized pdf files from a template and a csv file
 
-.jumbotron
+.lead.card-body
   h4 Short instructions
   p Upload two files: an image or a pdf file (one-page) that should be used as a background and a csv file with the data.
     In the Template field modify the text template which will be rendered using the data file into each separate pdf page.
@@ -21,12 +21,15 @@ h1.page-title
           = f.file_field :background, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'any image or pdf file that should be used as a background'
           = f.file_field :data, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'csv file with first row as column names'
           = f.select :font, PdfTemplate::DEFAULT_FONTS.keys.zip(PdfTemplate::DEFAULT_FONTS.keys), layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'default font for all the text. Can be altered in the template.'
+          = f.number_field :font_size, layout: :horizontal, label_col: 'col-4', control_col: 'col-8'
+          = f.select :text_align, %w(left right center justify), layout: :horizontal, label_col: 'col-4', control_col: 'col-8'
+          = f.select :valign, %w(top center bottom), layout: :horizontal, label_col: 'col-4', control_col: 'col-8'
         .col-6
-          = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 5, help: 'Refer to <a href="http://prawnpdf.org/manual.pdf">prawn-pdf documentation</a> for syntax. Use csv column names as variable names in double curly brackets ("{{}}")'.html_safe
+          = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 8, help: 'Refer to <a href="http://prawnpdf.org/manual.pdf">prawn-pdf documentation</a> for syntax. Use csv column names as variable names in double curly brackets ("{{}}")'.html_safe
       .form-row
         .col-3
           = f.form_group :page_layout, label: {text: 'Page orientation'}
-            = f.radio_button :page_layout, :portrait, label: 'Portrait', checked: true
+            = f.radio_button :page_layout, :portrait, label: 'Portrait'
             = f.radio_button :page_layout, :landscape, label: 'Landscape'
         .col-3
           - paper_sizes = PDF::Core::PageGeometry::SIZES.keys
