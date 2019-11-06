@@ -92,6 +92,7 @@ class PdfTemplate < Prawn::Document
       fonts:  DEFAULT_FONTS,
       font_size: 16,
       text_align: 'center',
+      valigh: 'top',
       use_background: false,
       leading: 1,
       background: nil,

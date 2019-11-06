@@ -11,10 +11,13 @@ RSpec.describe Badge, type: :model do
     it { should validate_presence_of(:page_layout) }
     it { should validate_presence_of(:font) }
     it { should validate_presence_of(:margins) }
+    it { should validate_numericality_of(:font_size)}
 
     it {should validate_inclusion_of(:paper_size).in_array(PDF::Core::PageGeometry::SIZES.keys)}
     it {should validate_inclusion_of(:font).in_array(PdfTemplate::DEFAULT_FONTS.keys)}
     it {should validate_inclusion_of(:page_layout).in_array(%i(portrait landscape))}
+    it {should validate_inclusion_of(:text_align).in_array(%w(left right center justify))}
+    it {should validate_inclusion_of(:valign).in_array(%w(top center bottom))}
   end
 
   context 'with default params' do
