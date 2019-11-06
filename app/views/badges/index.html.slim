@@ -18,8 +18,8 @@ h1.page-title
       .form-row
         / .col-12= f.text_field :title
         .col-6
-          = f.file_field :background, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'any image or pdf file that should be used as a background'
-          = f.file_field :data, layout: :horizontal, label_col: 'col-4', control_col: 'col-8', help: 'csv file with first row as column names'
+          = f.file_field :background, layout: :horizontal, label_col: 'col-3', control_col: 'col-9', help: 'any image or pdf file that should be used as a background'
+          = f.file_field :data, layout: :horizontal, label_col: 'col-3', control_col: 'col-9', help: 'csv file with first row as column names'
           .form-row
             .col-8= f.select :font, PdfTemplate::DEFAULT_FONTS.keys.zip(PdfTemplate::DEFAULT_FONTS.keys), help: 'default font for all the text. Can be altered in the template.'
             .col-4= f.number_field :font_size
@@ -30,7 +30,7 @@ h1.page-title
           = f.text_area :template, class: 'text-monospace', value: PdfTemplate::DEFAULT_TEMPLATE, rows: 8, help: 'Refer to <a href="http://prawnpdf.org/manual.pdf">prawn-pdf documentation</a> for syntax. Use csv column names as variable names in double curly brackets ("{{}}")'.html_safe
       .form-row
         .col-3
-          = f.form_group :page_layout, label: {text: 'Page orientation'}
+          = f.form_group :page_layout, label: {text: 'Page layout'}
             = f.radio_button :page_layout, :portrait, label: 'Portrait'
             = f.radio_button :page_layout, :landscape, label: 'Landscape'
         .col-3
