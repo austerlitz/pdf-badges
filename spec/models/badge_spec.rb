@@ -14,7 +14,7 @@ RSpec.describe Badge, type: :model do
 
     it {should validate_inclusion_of(:paper_size).in_array(PDF::Core::PageGeometry::SIZES.keys)}
     it {should validate_inclusion_of(:font).in_array(PdfTemplate::DEFAULT_FONTS.keys)}
-    it {should validate_inclusion_of(:page_layout).in_array(%w(portrait landscape))}
+    it {should validate_inclusion_of(:page_layout).in_array(%i(portrait landscape))}
   end
 
   context 'with default params' do
@@ -22,8 +22,24 @@ RSpec.describe Badge, type: :model do
       should be_valid
     end
 
+    let(:pdf) {subject.to_pdf}
+    let(:analysis) {PDF::Inspector::Page.analyze(pdf)}
     it 'should generate a default pdf' do
-      expect(subject.to_pdf).to be_kind_of(String) and start_with'%PDF'
+      expect(pdf).to be_kind_of(String) and start_with'%PDF'
+    end
+
+    context 'with Badge default data' do
+      it 'has 2 pages' do
+        expect(analysis.pages.size).to eq(2)
+      end
+
+      it 'has page format A5' do
+        # .reverse because of landscape format
+        expect(PDF::Core::PageGeometry::SIZES.invert[analysis.pages[0][:size].reverse]).to eq(subject.paper_size) # A5 by default
+      end
+      it 'has `Mary` in page 2' do
+        expect(analysis.pages[1][:strings]).to include('Mary')
+      end
     end
 
   end

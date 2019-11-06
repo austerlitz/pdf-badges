@@ -17,15 +17,15 @@ class Badge
   validates_presence_of :template, :data, :page_layout, :paper_size, :font, :margins
   validates_inclusion_of :paper_size, in: PDF::Core::PageGeometry::SIZES.keys
   validates_inclusion_of :font, in: PdfTemplate::DEFAULT_FONTS.keys
-  validates_inclusion_of :page_layout, in: %w(portrait landscape)
+  validates_inclusion_of :page_layout, in: %i(portrait landscape)
 
   def initialize(options = {})
-    @options = options.reverse_merge(DEFAULT_OPTIONS)
-    assign_attributes(@options)
+    options[:page_layout] = options[:page_layout].to_sym if options[:page_layout].present?
+    assign_attributes(DEFAULT_OPTIONS.merge(options))
   end
 
   def to_pdf
-    pdf = PdfTemplate.new(as_json)
+    pdf = PdfTemplate.new(as_json.symbolize_keys)
     pdf.to_pdf
   end
 
