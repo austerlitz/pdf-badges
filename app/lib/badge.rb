@@ -13,6 +13,11 @@ class Badge
       margins:     [20, 40, 40, 40],
   }
 
+  validates_presence_of :template, :data, :page_layout, :paper_size, :font, :margins
+  validates_inclusion_of :paper_size, in: PDF::Core::PageGeometry::SIZES.keys
+  validates_inclusion_of :font, in: PdfTemplate::DEFAULT_FONTS.keys
+  validates_inclusion_of :page_layout, in: %i(portrait landscape)
+
   def initialize(options = {})
     options = options.reverse_merge(DEFAULT_OPTIONS)
     assign_attributes(options)
