@@ -36,6 +36,7 @@ h1.page-title
         .col-3
           - paper_sizes = PDF::Core::PageGeometry::SIZES.keys
           = f.select :paper_size, paper_sizes.zip(paper_sizes), include_blank: true
+          = f.text_field :custom_paper_size, placeholder: 'custom size: 210, 297', help: 'as two something-separated values in mm: Width, Height'
         .col-6
           = f.text_field :margins, help: 'top, right, bottom, left -- all in mm'
       .form-row

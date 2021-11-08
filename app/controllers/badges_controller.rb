@@ -11,6 +11,7 @@ class BadgesController < ApplicationController
     pdf_options.merge!(badge_params.as_json(except: [:background, :data, :title, :margins, :debug, :paper_size]).symbolize_keys)
 
     pdf_options[:paper_size] = badge_params[:paper_size] if badge_params[:paper_size].present?
+    pdf_options[:paper_size] = badge_params[:custom_paper_size].split(/[\s,_-]+/).map(&:to_i).map(&:mm) if badge_params[:custom_paper_size].present?
     pdf_options[:background] = badge_params[:background].path if badge_params[:background].present?
     pdf_options[:debug] = '1' == badge_params[:debug] # check_box
 
