@@ -2,7 +2,7 @@ class Badge
   include ActiveModel::Model
 
   attr_accessor :background, :data, :template,
-                :paper_size, :page_layout, :margins,
+                :custom_paper_size, :paper_size, :page_layout, :margins,
                 :font, :font_size, :text_align, :valign, :leading, :debug
 
   DEFAULT_OPTIONS = {
@@ -10,6 +10,7 @@ class Badge
       data:        [{name: 'John', message: 'производство смыслов'}, {name: 'Mary', message: :hello}],
       page_layout: :landscape,
       paper_size:  'A5',
+      custom_paper_size: nil,
       font:        'PT Sans',
       font_size:   12,
       margins:     [20, 40, 40, 40],
@@ -18,7 +19,7 @@ class Badge
   }
 
   validates_presence_of :template, :data, :page_layout, :paper_size, :font, :margins
-  validates_inclusion_of :paper_size, in: PDF::Core::PageGeometry::SIZES.keys
+  validates_inclusion_of :paper_size, in: PDF::Core::PageGeometry::SIZES.keys, unless: -> { self.custom_paper_size.present? }
   validates_inclusion_of :font, in: PdfTemplate::DEFAULT_FONTS.keys
   validates_inclusion_of :page_layout, in: %i(portrait landscape)
   validates_numericality_of :font_size, allow_nil: true

@@ -36,6 +36,10 @@ class PdfTemplate < Prawn::Document
           normal: File.join(FONTS_PATH, 'arial.ttf'),
           bold:   File.join(FONTS_PATH, 'arial_bold.ttf')
       },
+      'Bebas Neue' => {
+        normal: File.join(FONTS_PATH, 'BebasNeueRegular.ttf'),
+        bold: File.join(FONTS_PATH, 'BebasNeueBold.ttf'),
+      },
       'Cooper'     => {
           normal:      File.join(FONTS_PATH, 'COOPER.TTF'),
           bold:        File.join(FONTS_PATH, 'CooperBlackStd.ttf'),
@@ -75,6 +79,10 @@ class PdfTemplate < Prawn::Document
           italic:      File.join(FONTS_PATH, 'URANIA CZECH.ttf'),
           bold_italic: File.join(FONTS_PATH, 'URANIA CZECH.ttf'),
       },
+      'The Calling' => {
+        normal: File.join(FONTS_PATH, 'TheCalling.ttf'),
+        bold: File.join(FONTS_PATH, 'TheCalling.ttf'),
+      },
       'TravelingTypewriter' => {
           normal:      File.join(FONTS_PATH, 'TravelingTypewriter.ttf'),
           bold:        File.join(FONTS_PATH, 'TravelingTypewriter.ttf'),
@@ -87,6 +95,7 @@ class PdfTemplate < Prawn::Document
       font:  'Arial',
       margins:  [10, 10, 10, 10],
       paper_size:  'A4', # or as an array: [210.mm, 297.mm],
+      custom_paper_size: nil,
       page_layout: :portrait,
       template:  DEFAULT_TEMPLATE,
       fonts:  DEFAULT_FONTS,

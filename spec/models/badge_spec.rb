@@ -13,7 +13,14 @@ RSpec.describe Badge, type: :model do
     it { should validate_presence_of(:margins) }
     it { should validate_numericality_of(:font_size)}
 
-    it {should validate_inclusion_of(:paper_size).in_array(PDF::Core::PageGeometry::SIZES.keys)}
+    context 'with standard paper size' do
+      before {allow(subject).to receive(:custom_paper_size).and_return(nil)}
+      it {should validate_inclusion_of(:paper_size).in_array(PDF::Core::PageGeometry::SIZES.keys)}
+    end
+    context 'with custom paper size' do
+      before {allow(subject).to receive(:custom_paper_size).and_return([500, 300])}
+      it {should_not validate_inclusion_of(:paper_size).in_array(PDF::Core::PageGeometry::SIZES.keys)}
+    end
     it {should validate_inclusion_of(:font).in_array(PdfTemplate::DEFAULT_FONTS.keys)}
     it {should validate_inclusion_of(:page_layout).in_array(%i(portrait landscape))}
     it {should validate_inclusion_of(:text_align).in_array(%w(left right center justify))}
