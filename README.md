@@ -1,24 +1,12 @@
-# README
+# Pdf-badges
+make personalized pdf files from a template and a csv file
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+[Demo & working prototype](https://pdf-badges.herokuapp.com/)
 
-Things you may want to cover:
+## Usage
 
-* Ruby version
+Upload two files: an image or a pdf file (one-page) that should be used as a background and a csv file with the data. In the Template field modify the text template which will be rendered using the data file into each separate pdf page.
 
-* System dependencies
+Just play around with the template and settings to see what comes out.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+For syntax and settings in the template refer to prawn-pdf documentation. Use csv column names as variable names in double curly brackets ("{{}}")
